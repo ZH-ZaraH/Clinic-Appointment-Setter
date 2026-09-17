@@ -1,0 +1,79 @@
+CREATE TABLE Patients (
+  patient_id varchar(50) PRIMARY KEY,
+  first_name varchar(50),
+  last_name varchar(50),
+  birth_date date,
+  gender varchar(10),
+  contact_number varchar(20)
+);
+
+CREATE TABLE Doctors (
+  doctor_id varchar(50) PRIMARY KEY,
+  first_name varchar(50),
+  last_name varchar(50),
+  specialization varchar(50)
+);
+
+CREATE TABLE Doctor_Schedule (
+  schedule_id varchar(50) PRIMARY KEY,
+  doctor_id varchar(50),
+  day_of_week varchar(20),
+  start_time time,
+  end_time time,
+  availability varchar(20)
+);
+
+CREATE TABLE Staff (
+  staff_id varchar(50) PRIMARY KEY,
+  first_name varchar(50),
+  last_name varchar(50),
+  role varchar(30)
+);
+
+CREATE TABLE Appointments (
+  appointment_id varchar(50) PRIMARY KEY,
+  patient_id varchar(50),
+  doctor_id varchar(50),
+  staff_id varchar(50),
+  room_id varchar(10),
+  date_of_appointment date,
+  time_of_appointment time,
+  status varchar(20)
+);
+
+CREATE TABLE Appointment_History (
+  history_id varchar(50) PRIMARY KEY,
+  appointment_id varchar(50),
+  staff_id varchar(50),
+  old_date date,
+  old_time time,
+  new_date date,
+  new_time time,
+  status varchar(30)
+);
+
+CREATE TABLE Medical_Records (
+  record_id varchar (30) PRIMARY KEY,
+  patient_id varchar(50),
+  doctor_id varchar(50),
+  appointment_id varchar(50),
+  diagnosis varchar(50),
+  treatment varchar(50),
+  record_date date
+);
+
+CREATE TABLE Payments (
+  payment_id varchar(50) PRIMARY KEY,
+  appointment_id varchar(50),
+  amount decimal (10,2),
+  mode_of_payment varchar(20),
+  status varchar(10),
+  payment_date date
+);
+
+CREATE TABLE Rooms (
+  room_id varchar(10) PRIMARY KEY,
+  room_number varchar(20),
+  room_type varchar(50),
+  status varchar(20)
+);
