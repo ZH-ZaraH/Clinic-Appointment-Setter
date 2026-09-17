@@ -1,0 +1,66 @@
+---- WHERE Query
+SELECT * FROM Payments 
+WHERE mode_of_payment = 'Cash' 
+  AND amount > 2000.00;
+
+
+---- JOIN Query
+SELECT 
+    m.record_id,
+    m.patient_id,
+    m.diagnosis,
+    p.payment_id,
+    p.amount,
+    p.status AS payment_status
+FROM 
+    Medical_Records m
+JOIN 
+    Payments p ON m.appointment_id = p.appointment_id;
+
+
+----- JOIN and WHERE Queries
+SELECT 
+    m.record_id,
+    m.patient_id,
+    m.doctor_id,
+    m.diagnosis,
+    p.payment_id,
+    p.amount,
+    p.mode_of_payment,
+    p.status AS payment_status
+FROM 
+    Medical_Records m
+JOIN 
+    Payments p ON m.appointment_id = p.appointment_id
+WHERE 
+    p.mode_of_payment = 'Cash' 
+    AND p.status = 'Pending';
+
+
+----- GROUP BY Query
+SELECT 
+    diagnosis,
+    COUNT(record_id) AS total_cases
+FROM 
+    Medical_Records
+GROUP BY 
+    diagnosis
+ORDER BY 
+    total_cases DESC;
+
+
+----- WHERE, JOIN, GROUP BY Queries
+SELECT 
+    m.doctor_id,
+    COUNT(p.appointment_id) AS total_paid_appointments,
+    SUM(p.amount) AS total_revenue
+FROM 
+    Medical_Records m
+JOIN 
+    Payments p ON m.appointment_id = p.appointment_id
+WHERE 
+    p.status = 'Paid'
+GROUP BY 
+    m.doctor_id
+HAVING 
+    COUNT(p.appointment_id) > 2;
